@@ -1,5 +1,6 @@
 # This is a sample Python script.
 import sys
+import numpy as np
 
 
 def fast_sum_v1():
@@ -78,7 +79,7 @@ def pick_star_v2():
 
 
 def less_number():
-    n, x = map(int, input().split(" "))  #스페이스바로 구분된 두개의 정수를 받아 n과 x에 저장한다
+    n, x = map(int, input().split(" "))  # 스페이스바로 구분된 두개의 정수를 받아 n과 x에 저장한다
     storage: list = sys.stdin.readline().rstrip().split(" ")
     output: list = []
 
@@ -114,7 +115,7 @@ def while_sum_v2():
         a = int(input_list[0])
         b = int(input_list[1])
 
-        storage.append(a+b)
+        storage.append(a + b)
         print(storage[counter])
         counter += 1
 
@@ -138,7 +139,6 @@ def while_sum_v2_2():
         print(storage[counter])
         counter += 1
 
-
     return
     ##EOFError를 이용하라고 했지만, 방법이 뭔지 모르겠다.
 
@@ -149,7 +149,7 @@ def sum_cycle():
     counter: int = 0
     number: int = 0
     while True:
-        number = (number_mid%10)*10 + (number_mid//10+number_mid%10)%10
+        number = (number_mid % 10) * 10 + (number_mid // 10 + number_mid % 10) % 10
         number_mid = number
         counter += 1
 
@@ -177,7 +177,7 @@ def cheap_burger():
 
     soda_p.sort()
 
-    print(burger_p[0]+soda_p[0]-50)
+    print(burger_p[0] + soda_p[0] - 50)
 
 
 def average_score():
@@ -187,11 +187,11 @@ def average_score():
 
     for i in range(student):
         score = int(input())
-        if score<40:
+        if score < 40:
             score = 40
         scores.append(score)
 
-    print(int(sum(scores)/student))
+    print(int(sum(scores) / student))
     return
 
 
@@ -202,7 +202,7 @@ def pick_second():
         integers = int(numbers[i])
         numbers_int.append(integers)
 
-    numbers_int.sort(reverse = True)
+    numbers_int.sort(reverse=True)
     print(int(numbers_int[1]))
     return
 
@@ -223,44 +223,153 @@ def pick_second_if():
 
 def put_stars():
     count: int = int(input())
-    for i in range(count*2-1):
+    for i in range(count * 2 - 1):
         if i < count:
-            print("*"*(i+1), sep="", end="\n")
+            print("*" * (i + 1), sep="", end="\n")
         elif i >= count:
-            print("*"*(count-(i-count+1)), sep="", end="\n")
+            print("*" * (count - (i - count + 1)), sep="", end="\n")
     return
 
 
 def put_stars_v2():
     number: int = int(input())
-    for i in range(2*number-1):
+    for i in range(2 * number - 1):
         if i < number:
-            print(" "*i+(2*number-2*i-1)*"*")
+            print(" " * i + (2 * number - 2 * i - 1) * "*")
         if i >= number:
-            print(" "*(2*number-i-2)+(2*(i-number)+3)*"*")
+            print(" " * (2 * number - i - 2) + (2 * (i - number) + 3) * "*")
 
 
 def put_stars_v3():
     number: int = int(input())
-    for j in range(2*number):
+    for j in range(2 * number):
         if j % 2 == 0:
             for i in range(number):
                 if i % 2 == 0:
                     print("*", end="")
-                elif i % 2 !=0:
+                elif i % 2 != 0:
                     print(" ", end="")
         elif j % 2 != 0:
             for k in range(number):
                 if k % 2 == 0:
-                    print(" ",end="")
+                    print(" ", end="")
                 elif k % 2 != 0:
-                    print("*",end="")
+                    print("*", end="")
         print("")
 
     return
 
 
+def min_max_numpy():
+    number: int = int(input())
+    storage: np.array = np.array(sys.stdin.readline().rstrip().split(" "), dtype=int)
+    storage.sort()
+
+    print(storage[0], storage[-1])
+
+
+def min_max():
+    number: int = int(input())
+    storage: list = list(map(int, sys.stdin.readline().split(" ")))
+    print(min(storage), max(storage))
+
+
+def max_index():
+    n: int = 9
+    storage = []
+    for i in range(n):
+        storage.append(int(input()))
+    print(max(storage))
+    print(storage.index(max(storage)) + 1)
+
+
+def count_number():
+    n = 10
+    result = 1
+    storage = []
+    num_count = []
+
+    for i in range(3):
+        result *= int(input())
+
+    remain_num = result
+
+    while True:
+        if remain_num // 10 > 0:
+            storage.append(remain_num % 10)
+            remain_num //= 10
+        elif remain_num // 10 == 0:
+            storage.append(remain_num)
+            break
+
+    for i in range(n):
+        count = 0
+        for j in range(len(storage)):
+            if i == storage[j]:
+                count += 1
+
+        num_count.append(count)
+        print(num_count[i])
+    return
+
+
+def count_rest():
+    n = 10
+    n_list = []
+    for i in range(n):
+        n_list.append(int(input()) % 42)
+    n_list = list(set(n_list))
+
+    print(len(n_list))
+    return
+
+
+def fake_score():
+    n = int(input())
+    scores = list(map(int, sys.stdin.readline().split(" ")))
+    fake_s = 0
+
+    for i in range(len(scores)):
+        fake_s += (scores[i] / max(scores) * 100)
+
+    print(fake_s / n)
+    return
+
+
+def ox_prob():
+    n = int(input())
+    for i in range(n):
+        ans = list(map(str, sys.stdin.readline().rstrip()))
+        score = 0
+        count = 0
+        for j in ans:
+            if j == "O":
+                count += 1
+                score += count
+
+            elif j == "X":
+                count = 0
+        print(score)
+    return
+
+
+def find_above_av():
+    t = int(input())
+    for i in range(t):
+        n_stu = []
+        n_stu = list(map(int, sys.stdin.readline().rstrip().split()))
+        count = 0
+        for j in range(n_stu[0]):
+            if n_stu[j + 1] > sum(n_stu[1:]) / n_stu[0]:
+                count += 1
+
+        print(f'{float(count) / n_stu[0] * 100:.3f}%')
+    return
+
+
+
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    put_stars_v3()
+    find_above_av()
